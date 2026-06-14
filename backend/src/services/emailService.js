@@ -7,9 +7,9 @@ const sendVerificationOTP = async (email, name, otp) => {
 
   // If using default mock/dev config, skip nodemailer setup to avoid crashes
   if (
-    !process.env.EMAIL_USER || 
-    process.env.EMAIL_USER === 'mock_user' || 
-    !process.env.EMAIL_PASS || 
+    !process.env.EMAIL_USER ||
+    process.env.EMAIL_USER === 'mock_user' ||
+    !process.env.EMAIL_PASS ||
     process.env.EMAIL_PASS === 'mock_pass'
   ) {
     console.log('Mail credentials are mock. Skipping SMTP send. OTP logged above.');
@@ -18,13 +18,13 @@ const sendVerificationOTP = async (email, name, otp) => {
 
   try {
     const transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST,
-      port: parseInt(process.env.EMAIL_PORT, 10) || 2525,
+      service: 'gmail',
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
     });
+
 
     const mailOptions = {
       from: process.env.EMAIL_FROM || 'noreply@campusresell.edu',
@@ -44,7 +44,8 @@ const sendVerificationOTP = async (email, name, otp) => {
         </div>
       `,
     };
-
+    await transporter.verify();
+    console.log("SMTP connection successful");
     await transporter.sendMail(mailOptions);
     console.log(`Verification OTP sent to ${email}`);
     return true;
