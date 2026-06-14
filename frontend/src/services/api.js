@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Set up default axios client
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: 'https://anurag-resell.onrender.com/api',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -37,13 +37,13 @@ api.interceptors.response.use(
         window.location.href = '/login';
       }
     }
-    
+
     // Extract server message if available
-    const message = 
+    const message =
       error.response && error.response.data && error.response.data.message
         ? error.response.data.message
         : 'An unexpected error occurred. Please try again.';
-        
+
     return Promise.reject(new Error(message));
   }
 );
