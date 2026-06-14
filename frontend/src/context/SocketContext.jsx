@@ -17,12 +17,11 @@ export const SocketProvider = ({ children }) => {
       return;
     }
 
-    // Connect socket to server (Vite proxy redirects relative path /socket.io in dev)
-    const newSocket = io(window.location.origin, {
+    const newSocket = io('https://anurag-resell.onrender.com', {
       auth: {
         token,
       },
-      transports: ['websocket', 'polling'], // Fallback if websockets fail
+      transports: ['websocket', 'polling'],
     });
 
     newSocket.on('connect', () => {
