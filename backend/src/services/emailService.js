@@ -50,8 +50,7 @@ const sendVerificationOTP = async (email, name, otp) => {
     console.log(`Verification OTP sent to ${email}`);
     return true;
   } catch (error) {
-    console.error(`Error sending email to ${email}:`, error.message);
-    // Return true anyway so that registration is not blocked in dev environment,
+    console.error('Full Email Error:', error);    // Return true anyway so that registration is not blocked in dev environment,
     // since the OTP was already printed to the console log!
     return true;
   }
