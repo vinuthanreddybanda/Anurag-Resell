@@ -61,6 +61,12 @@ if (!fs.existsSync(uploadsDir)) {
 app.use('/uploads', express.static(path.join(__dirname, '..', 'public', 'uploads')));
 
 // Routes
+app.get('/', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'Anurag Resell API is running'
+  });
+});
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
