@@ -44,6 +44,12 @@ const sendVerificationOTP = async (email, name, otp) => {
         </div>
       `,
     };
+    console.log("EMAIL_HOST:", process.env.EMAIL_HOST);
+    console.log("EMAIL_PORT:", process.env.EMAIL_PORT);
+    console.log("EMAIL_USER:", process.env.EMAIL_USER);
+
+    await transporter.verify();
+    console.log("SMTP VERIFIED");
     await transporter.verify();
     console.log("SMTP connection successful");
     await transporter.sendMail(mailOptions);
